@@ -7,8 +7,13 @@
 # Authors:
 #   Ben O'Hara <bohara@gmail.com>
 #
+# Modified by:
+#   Will Smith
+#
+# Major plagiarism from Aaron Toponce
+#
 
-prompt_dotphiles_help () {
+prompt_undertakingyou_help () {
   cat <<'EOH'
 
 General Look
@@ -20,7 +25,7 @@ Options
 
   You can change the colours of the theme.
 
-  % prompt dotphiles [<theme> [<colour1> ]
+  % prompt undertakingyou [<theme> [<colour1> ]
 
                  theme   : dark or light
                  colour1 : [user] at [host]
@@ -29,9 +34,9 @@ Options
 
 Example
 
-  prompt dotphiles soldark red
-  prompt dotphiles sollight orange
-  prompt dotphiles zenburn orange
+  prompt undertakingyou soldark red
+  prompt undertakingyou sollight orange
+  prompt undertakingyou zenburn orange
 
 Colors
 
@@ -40,10 +45,16 @@ Colors
 EOH
 }
 
-function prompt_dotphiles_precmd {
+function prompt_undertakingyou_precmd {
+  # now let's change the color of the path if it's not writable
+  if [[ -w $PWD ]]; then
+    prompt_pwdcolor="%{$prompt_brcyan%}"
+  else
+    prompt_pwdcolor="%{$prompt_bryellow%}"
+  fi
 
   if [[ $COLUMNS -gt 80 ]]; then
-    if [[ -n "$__PROMPT_dotphiles_VCS_UPDATE" ]] ; then
+    if [[ -n "$__PROMPT_undertakingyou_VCS_UPDATE" ]] ; then
       # Check for untracked files or updated submodules since vcs_info doesn't.
       if [[ ! -z $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
         fmt_branch="%{$prompt_reset%}${bropen}%{$prompt_dull%}%s%{$prompt_reset%}:%{$prompt_orange%}%b%{$prompt_reset%}${brclose} %{$prompt_green%}${dirty}%{$prompt_reset%} %u%c%m"
@@ -53,52 +64,59 @@ function prompt_dotphiles_precmd {
       zstyle ':vcs_info:(hg*|git*):*' formats "${fmt_branch}"
 
       vcs_info 'prompt'
-      __PROMPT_dotphiles_VCS_UPDATE=''
+      __PROMPT_undertakingyou_VCS_UPDATE=''
     fi
 
     prompt_detail="%{${vcs_info_msg_0_}%}"
-    end="$dash %(?:%{${prompt_hi}%}:%{${prompt_red}%})$(date +%T)"
+    right_prompt="%{$prompt_brgreen%}❮%{$prompt_green%}❮%{$prompt_brblack%}❮%{$prompt_bryellow%}$(date +'%T %a %d %b %Y')%{$prompt_orange%}|%{$prompt_detail%}%{$prompt_brblack%}❯%{$prompt_red%}❯%{$prompt_orange%}❯"
     local zero='%([BSUbfksu]|([FB]|){*})'
-    SEPLENGTH=${#${(S%%)end//$~zero/}}
+    SEPLENGTH=${#${(S%%)right_prompt//$~zero/}}
     DETAILLENGTH=${#${(S%%)prompt_detail//$~zero/}}
     MAINLENGTH=${#${(S%%)MAINPROMPT//$~zero/}}
     if [ ! -z $VIRTUAL_ENV ]; then
         VENV=`basename $VIRTUAL_ENV`
         VENVLENGTH=${#${(S%%)VENV//$~zero/}}
         VENVLENGTH=$VENVLENGTH+3
-        (( j=$COLUMNS-($SEPLENGTH+$MAINLENGTH+$DETAILLENGTH+$VENVLENGTH) ))
+        (( j=$COLUMNS-($SEPLENGTH+$MAINLENGTH+$VENVLENGTH) ))
     else
-        (( j=$COLUMNS-($SEPLENGTH+$MAINLENGTH+$DETAILLENGTH) ))
+        (( j=$COLUMNS-($SEPLENGTH+$MAINLENGTH) ))
     fi
     if [[ $COLUMNS -gt 120 ]]; then
       fill=${(l:$j::-:)}
-      prompt_seperator="%{${prompt_dull}%}${fill//-/$dash}$end"
+      prompt_seperator="%{${prompt_dull}%}${fill//-/$dash}$right_prompt"
+      prompt_path="$prompt_pwdcolor$(collapse_pwd)"
       unset fill
     else
       prompt_seperator=""
+      prompt_path="$prompt_pwdcolor$(collapse_pwd)"
     fi
   else
     prompt_detail=""
     prompt_seperator=""
+    prompt_path="$prompt_pwdcolor$(collapse_pwd)"
   fi
 }
 
-function prompt_dotphiles_preexec {
+function prompt_undertakingyou_preexec {
   case "$(history $HISTCMD)" in
     (*git*)
-      __PROMPT_dotphiles_VCS_UPDATE=1
+      __PROMPT_undertakingyou_VCS_UPDATE=1
     ;;
     (*svn*)
-      __PROMPT_dotphiles_VCS_UPDATE=1
+      __PROMPT_undertakingyou_VCS_UPDATE=1
     ;;
     (*hg*)
-      __PROMPT_dotphiles_VCS_UPDATE=1
+      __PROMPT_undertakingyou_VCS_UPDATE=1
     ;;
   esac
 }
 
-function prompt_dotphiles_chpwd {
-  __PROMPT_dotphiles_VCS_UPDATE=1
+function collapse_pwd {
+  echo $(pwd | sed -e "s,^$HOME,~,")
+}
+
+function prompt_undertakingyou_chpwd {
+  __PROMPT_undertakingyou_VCS_UPDATE=1
   [ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD"
 }
 
@@ -186,7 +204,7 @@ function get_hostname_color() {
     echo "$crandname"
 }
 
-function prompt_dotphiles_setup {
+function prompt_undertakingyou_setup {
   setopt LOCAL_OPTIONS
   unsetopt XTRACE KSH_ARRAYS
   prompt_opts=(cr percent subst)
@@ -226,12 +244,12 @@ function prompt_dotphiles_setup {
   if autoload -Uz is-at-least && is-at-least "$min_zsh_version"; then
     autoload -Uz add-zsh-hook
     autoload -Uz vcs_info
-    add-zsh-hook precmd prompt_dotphiles_precmd
-    add-zsh-hook preexec prompt_dotphiles_preexec
-    add-zsh-hook chpwd prompt_dotphiles_chpwd
-    __PROMPT_dotphiles_VCS_UPDATE=1
+    add-zsh-hook precmd prompt_undertakingyou_precmd
+    add-zsh-hook preexec prompt_undertakingyou_preexec
+    add-zsh-hook chpwd prompt_undertakingyou_chpwd
+    __PROMPT_undertakingyou_VCS_UPDATE=1
 
-    userprompt="❯❯"
+    userprompt="%{$prompt_brblack%}❯%{$prompt_green%}❯%{$prompt_brgreen%}❯"
     bropen="❮"
     brclose="❯"
     unstaged="✱"
@@ -262,16 +280,10 @@ function prompt_dotphiles_setup {
 
   eval prompt_host="$"prompt_$_prompt_host""
 
-  if [[ $COLUMNS -gt 80 ]]; then
-    path_parts=5
-  else
-    path_parts=3
-  fi
-
   if [[ ! -z $SSH_CONNECTION ]]; then
-    prompt_at="on"
+    prompt_at=" on "
   else
-    prompt_at="at"
+    prompt_at="@"
   fi
 
   zstyle ':dotzsh:module:editor' completing '%{$prompt_brgreen%}...%{$prompt_reset%}'
@@ -318,10 +330,12 @@ function prompt_dotphiles_setup {
   zstyle ':dotzsh:module:editor:keymap:primary' overwrite " %{$prompt_red%}${over}%{$prompt_reset%}"
   zstyle ':dotzsh:module:editor:keymap' alternate " %{$prompt_yellow%}${bropen}%{$prompt_orange%}${bropen}%{$prompt_red%}${bropen}%{$prompt_reset%}"
   SPROMPT='zsh: correct %{$prompt_red%}%R%{$prompt_reset%} to %{$prompt_green%}%r%{$prompt_reset%} [nyae]? '
-  MAINPROMPT="%(!.%U%{$prompt_red%}.%{$prompt_host%})%n%u%{$prompt_dull%} ${prompt_at} %{$prompt_host%}$HOSTNAME%u%{$prompt_dull%} in %{$prompt_hi%}%$path_parts~ "
+  MAINPROMPT_START="%{$prompt_orange%}❮%{$prompt_red%}❮%{$prompt_brblack%}❮%(!.%U%{$prompt_red%}.%{$prompt_hi%})%n${prompt_at}%m%u:"
+  MAINPROMPT_END="%{$prompt_brblack%}❯%{$prompt_green%}❯%{$prompt_brgreen%}❯"
+  MAINPROMPT_OLD="%(!.%U%{$prompt_red%}.%{$prompt_host%})%n%u%{$prompt_dull%} ${prompt_at} %{$prompt_host%}$HOSTNAME%u%{$prompt_dull%} in %{$prompt_hi%}%$path_parts~ "
   SUBPROMPT="%{${prompt_hi}%} ${userprompt} %{$prompt_reset%}"
-  PROMPT='%{$MAINPROMPT%}%{$prompt_detail%}%{$prompt_seperator%}
+  PROMPT='%{$MAINPROMPT_START%}%{$prompt_path%}%{$MAINPROMPT_END%}%{$prompt_seperator%}
 $SUBPROMPT'
 }
 
-prompt_dotphiles_setup "$@"
+prompt_undertakingyou_setup "$@"
