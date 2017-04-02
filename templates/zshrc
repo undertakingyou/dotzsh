@@ -79,9 +79,9 @@ zstyle ':dotzsh:module:ssh:agent' forwarding 'yes'
 
 ### OSX module
 # Add aliases for Applications
-zstyle ':dotzsh:module:osx' launcher 'yes'
+# zstyle ':dotzsh:module:osx' launcher 'yes'
 # Open/Resume temrinal in correct dir
-zstyle ':dotzsh:module:osx' terminal-resume 'yes'
+# zstyle ':dotzsh:module:osx' terminal-resume 'yes'
 
 ### Git module
 # Disable all git aliases
