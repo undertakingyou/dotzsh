@@ -54,7 +54,7 @@ function prompt_undertakingyou_precmd {
     fi
     if [[ $COLUMNS -gt 120 ]]; then
       fill=${(l:$j::-:)}
-      prompt_seperator="%{${prompt_dull}%}${fill//-/$dash}$right_prompt"
+      prompt_seperator="%{${prompt_brgreen}%}${fill//-/$dash}$right_prompt"
       prompt_path="$prompt_pwdcolor$(collapse_pwd)"
       unset fill
     else
