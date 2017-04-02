@@ -55,7 +55,9 @@ alias po='popd'
 alias pu='pushd'
 alias rm="${aliases[rm]:-rm} -i"
 alias type='type -a'
+alias .='source'
 
+alias ls='ls -G -F'      # List and highlight Will Smith addition
 alias l='ls -1A'         # Lists in one column, hidden files.
 alias ll='ls -lh'        # Lists human readable sizes.
 alias lr='ll -R'         # Lists human readable sizes, recursively.
@@ -224,7 +226,7 @@ function pingrouter() {
 }
 
 # repeat last command with sudo
-function fuck() {
+function shit() {
   LAST_CMD=`fc -nl -1`
   echo sudo $LAST_CMD
   sudo zsh -c $LAST_CMD

@@ -28,7 +28,8 @@ zstyle ':dotzsh:load' dzmodule \
   'utility' \
   'completion' \
   'theme' \
-  'git'
+  'git' \
+  'syntax-highlighting'
 
 ### Global settings
 # Color output (auto set to 'no' on dumb terminals).
@@ -95,8 +96,9 @@ zstyle ':dotzsh:module:ssh:agent' forwarding 'yes'
 #zstyle ':dotzsh:module:tmux:aliases' tmuxinator 'yes'
 
 ### Syntax Highlighting module
-#zstyle ':dotzsh:module:syntax-highlighting' highlighters 'main' 'brackets' 'pattern' \
-#  'cursor' 'root' \
+zstyle ':dotzsh:module:syntax-highlighting' color 'yes'
+zstyle ':dotzsh:module:syntax-highlighting' highlighters 'main' 'brackets' 'pattern' \
+ 'cursor' 'root' \
 
 ### Theme module
 # Set default theme to load.
@@ -122,11 +124,6 @@ source "$DOTZSH/init.zsh"
 [[ -n "${key[Down]}"   ]] && bindkey "${key[Down]}" down-line-or-history
 [[ -n "${key[Left]}"   ]] && bindkey "${key[Left]}" backward-char
 [[ -n "${key[Right]}"  ]] && bindkey "${key[Right]}" forward-char
-
-# general purpose aliases
-alias ls='ls -G -F'
-alias la='ls -al'
-alias .='source'
 
 # apt aliases
 alias apt-clean="sudo apt-get autoclean && sudo apt-get autoremove && sudo \
