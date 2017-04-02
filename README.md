@@ -26,7 +26,7 @@ Installation
      master and easily have all the changes. To do so, there is a small helper
      script. Do the following:
 
-        `chmod +x ~/.zsh/install.zsh
+        `chmod +x ~/.zsh/install.zsh;
         ~/.zsh/install.zsh`
 
      Alternatively, you can create a new Zsh configuration by copying the Zsh
