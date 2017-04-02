@@ -301,7 +301,7 @@ function prompt_undertakingyou_setup {
   zstyle ':dotzsh:module:editor:keymap:primary' overwrite " %{$prompt_red%}${over}%{$prompt_reset%}"
   zstyle ':dotzsh:module:editor:keymap' alternate " %{$prompt_yellow%}${bropen}%{$prompt_orange%}${bropen}%{$prompt_red%}${bropen}%{$prompt_reset%}"
   SPROMPT='zsh: correct %{$prompt_red%}%R%{$prompt_reset%} to %{$prompt_green%}%r%{$prompt_reset%} [nyae]? '
-  MAINPROMPT_START="%{$prompt_orange%}❮%{$prompt_red%}❮%{$prompt_brblack%}❮%(!.%U%{$prompt_red%}.%{$prompt_hi%})%n${prompt_at}%m%u:"
+  MAINPROMPT_START="%{$prompt_orange%}❮%{$prompt_red%}❮%{$prompt_brblack%}❮%(!.%U%{$prompt_red%}.%{$prompt_hi%})%n%{$prompt_green%}${prompt_at}%{$prompt_hi%}%m%u:"
   MAINPROMPT_END="%{$prompt_brblack%}❯%{$prompt_green%}❯%{$prompt_brgreen%}❯"
   SUBPROMPT="%{${prompt_hi}%} ${userprompt} %{$prompt_reset%}"
   PROMPT='%{$MAINPROMPT_START%}%{$prompt_path%}%{$MAINPROMPT_END%}%{$prompt_seperator%}
