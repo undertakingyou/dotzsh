@@ -38,11 +38,12 @@ function prompt_undertakingyou_precmd {
     prompt_detail="%{${vcs_info_msg_0_}%}"
     right_prompt="%{$prompt_brgreen%}❮%{$prompt_green%}❮%{$prompt_brblack%}❮%{$prompt_bryellow%}$(date +'%T %a %d %b %Y')%{$prompt_orange%}|%{$prompt_detail%}%{$prompt_brblack%}❯%{$prompt_red%}❯%{$prompt_orange%}❯"
     local zero='%([BSUbfksu]|([FB]|){*})'
+    CURRENT_DIRECTORY=$(collapse_pwd)
     SEPLENGTH=${#${(S%%)right_prompt//$~zero/}}
     DETAILLENGTH=${#${(S%%)prompt_detail//$~zero/}}
     MAINSTARTLENGTH=${#${(S%%)MAINPROMPT_START//$~zero/}}
     MAINENDLENGTH=${#${(S%%)MAINPROMPT_END//$~zero/}}
-    PATHLENGTH=${#${(S%%)$(collapse_pwd)//$~zero/}}
+    PATHLENGTH=${#${(S%%)CURRENT_DIRECTORY//$~zero/}}
     if [ ! -z $VIRTUAL_ENV ]; then
         VENV=`basename $VIRTUAL_ENV`
         VENVLENGTH=${#${(S%%)VENV//$~zero/}}
