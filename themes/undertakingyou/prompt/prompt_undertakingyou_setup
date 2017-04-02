@@ -306,6 +306,7 @@ function prompt_undertakingyou_setup {
   SUBPROMPT="%{${prompt_hi}%} ${userprompt} %{$prompt_reset%}"
   PROMPT='%{$MAINPROMPT_START%}%{$prompt_path%}%{$MAINPROMPT_END%}%{$prompt_seperator%}
 $SUBPROMPT'
+  PROMPT2='%{$SUBPROMPT%} %_ %{$SUBPROMPT%}'
 }
 
 prompt_undertakingyou_setup "$@"
