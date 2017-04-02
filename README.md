@@ -20,26 +20,26 @@ Installation
 
   1. Clone the repository:
 
-        git clone --recursive https://github.com/dotphiles/dotzsh.git ~/.zsh
+        `git clone --recursive https://github.com/dotphiles/dotzsh.git ~/.zsh`
 
   2. I like to link the configuration files, which lets me update or pull from
      master and easily have all the changes. To do so, there is a small helper
      script. Do the following:
 
-        chmod +x ~/.zsh/install.zsh
-        ~/.zsh/install.zsh
+        `chmod +x ~/.zsh/install.zsh
+        ~/.zsh/install.zsh`
 
      Alternatively, you can create a new Zsh configuration by copying the Zsh
      configuration file templates provided. This will let you edit the zshrc as
      wanted without having it conflict with git upstream.
 
-        for rcfile in ~/.zsh/templates/z{shenv,shrc,login,logout}; do
+        `for rcfile in ~/.zsh/templates/z{shenv,shrc,login,logout}; do
           cp -f $rcfile ~/.$rcfile:t
-        done
+        done`
 
   3. Set Zsh as your default shell:
 
-        chsh -s /bin/zsh
+        `chsh -s /bin/zsh`
 
   4. Open a new Zsh terminal window or tab.
 
@@ -49,7 +49,7 @@ If you have administrator privileges, you must fix an Apple-introduced problem
 in Mac OS X 10.5 Leopard by executing the following command, or BASH and Zsh
 will have the wrong `PATH` when executed non-interactively.
 
-    sudo chmod ugo-x /usr/libexec/path_helper
+    `sudo chmod ugo-x /usr/libexec/path_helper`
 
 `path_helper` is intended to make it easier for installers to add new paths to
 the environment without having to edit shell configuration files by adding
