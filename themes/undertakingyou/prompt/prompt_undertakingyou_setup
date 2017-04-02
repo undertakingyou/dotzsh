@@ -13,38 +13,6 @@
 # Major plagiarism from Aaron Toponce
 #
 
-prompt_undertakingyou_help () {
-  cat <<'EOH'
-
-General Look
-
-  user at host in ~
-   %
-
-Options
-
-  You can change the colours of the theme.
-
-  % prompt undertakingyou [<theme> [<colour1> ]
-
-                 theme   : dark or light
-                 colour1 : [user] at [host]
-
-  The defaults are dark and green
-
-Example
-
-  prompt undertakingyou soldark red
-  prompt undertakingyou sollight orange
-  prompt undertakingyou zenburn orange
-
-Colors
-
-   yellow orange red magenta violet blue cyan green
-
-EOH
-}
-
 function prompt_undertakingyou_precmd {
   # now let's change the color of the path if it's not writable
   if [[ -w $PWD ]]; then
@@ -72,14 +40,16 @@ function prompt_undertakingyou_precmd {
     local zero='%([BSUbfksu]|([FB]|){*})'
     SEPLENGTH=${#${(S%%)right_prompt//$~zero/}}
     DETAILLENGTH=${#${(S%%)prompt_detail//$~zero/}}
-    MAINLENGTH=${#${(S%%)MAINPROMPT//$~zero/}}
+    MAINSTARTLENGTH=${#${(S%%)MAINPROMPT_START//$~zero/}}
+    MAINENDLENGTH=${#${(S%%)MAINPROMPT_END//$~zero/}}
+    PATHLENGTH=${#${(S%%)$(collapse_pwd)//$~zero/}}
     if [ ! -z $VIRTUAL_ENV ]; then
         VENV=`basename $VIRTUAL_ENV`
         VENVLENGTH=${#${(S%%)VENV//$~zero/}}
         VENVLENGTH=$VENVLENGTH+3
-        (( j=$COLUMNS-($SEPLENGTH+$MAINLENGTH+$VENVLENGTH) ))
+        (( j=$COLUMNS-($SEPLENGTH+$MAINSTARTLENGTH+$MAINENDLENGTH+$PATHLENGTH+$VENVLENGTH) ))
     else
-        (( j=$COLUMNS-($SEPLENGTH+$MAINLENGTH) ))
+        (( j=$COLUMNS-($SEPLENGTH+$MAINSTARTLENGTH+$MAINENDLENGTH+$PATHLENGTH) ))
     fi
     if [[ $COLUMNS -gt 120 ]]; then
       fill=${(l:$j::-:)}
@@ -332,7 +302,6 @@ function prompt_undertakingyou_setup {
   SPROMPT='zsh: correct %{$prompt_red%}%R%{$prompt_reset%} to %{$prompt_green%}%r%{$prompt_reset%} [nyae]? '
   MAINPROMPT_START="%{$prompt_orange%}❮%{$prompt_red%}❮%{$prompt_brblack%}❮%(!.%U%{$prompt_red%}.%{$prompt_hi%})%n${prompt_at}%m%u:"
   MAINPROMPT_END="%{$prompt_brblack%}❯%{$prompt_green%}❯%{$prompt_brgreen%}❯"
-  MAINPROMPT_OLD="%(!.%U%{$prompt_red%}.%{$prompt_host%})%n%u%{$prompt_dull%} ${prompt_at} %{$prompt_host%}$HOSTNAME%u%{$prompt_dull%} in %{$prompt_hi%}%$path_parts~ "
   SUBPROMPT="%{${prompt_hi}%} ${userprompt} %{$prompt_reset%}"
   PROMPT='%{$MAINPROMPT_START%}%{$prompt_path%}%{$MAINPROMPT_END%}%{$prompt_seperator%}
 $SUBPROMPT'
