@@ -20,7 +20,7 @@ Installation
 
   1. Clone the repository:
 
-        `git clone --recursive https://github.com/dotphiles/dotzsh.git ~/.zsh`
+        `git clone --recursive https://github.com/undertakingyou/dotzsh.git ~/.zsh`
 
   2. I like to link the configuration files, which lets me update or pull from
      master and easily have all the changes. To do so, there is a small helper
