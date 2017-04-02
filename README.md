@@ -1,7 +1,8 @@
 dotzsh
 ======
 
-dotzsh is a configuration framework for [Zsh][1] that enriches the command line
+This is Will Smith's personal zsh configuration, based an dotzsh. Dotzsh is a
+configuration framework for [Zsh][1] that enriches the command line
 interface environment with sane defaults, aliases, functions, auto completion,
 and prompt themes.
 
@@ -10,6 +11,10 @@ lost when running under older versions of zsh, but it should degrade cleanly and
 allow you to use the same setup on multiple machines of differing OS's without
 problems.
 
+My additions include my own custom prompt, and some changes to the utility
+module to have a few more of my personal aliases. Feel free to contribute, or
+fork.
+
 Installation
 ------------
 
@@ -17,8 +22,16 @@ Installation
 
         git clone --recursive https://github.com/dotphiles/dotzsh.git ~/.zsh
 
-  2. Create a new Zsh configuration by copying the Zsh configuration file
-     templates provided:
+  2. I like to link the configuration files, which lets me update or pull from
+     master and easily have all the changes. To do so, there is a small helper
+     script. Do the following:
+
+        chmod +x ~/.zsh/install.zsh
+        ~/.zsh/install.zsh
+
+     Alternatively, you can create a new Zsh configuration by copying the Zsh
+     configuration file templates provided. This will let you edit the zshrc as
+     wanted without having it conflict with git upstream.
 
         for rcfile in ~/.zsh/templates/z{shenv,shrc,login,logout}; do
           cp -f $rcfile ~/.$rcfile:t
