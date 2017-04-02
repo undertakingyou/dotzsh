@@ -18,5 +18,9 @@ source "$DOTZSH/env.zsh"
 
 # Customize to your needs...
 export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
-source /usr/local/bin/virtualenvwrapper.sh
+export PROJECT_HOME=$HOME/Projects
+if [[ -a /usr/local/bin/virtualenvwrapper.sh ]]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+elif [[ -a /usr/share/virtualenvwrapper/virtualenvwrapper.sh ]]; then
+    source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+fi
