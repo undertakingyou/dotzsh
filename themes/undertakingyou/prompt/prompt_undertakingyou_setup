@@ -119,7 +119,8 @@ function +vi-git-st() {
         absplit=":"
     fi
 
-    hook_com[branch]="${hook_com[branch]}%{$prompt_reset%}${remsplit}%{$prompt_yellow%}${remote}%{$prompt_reset%}${absplit}${(j:/:)gitstatus}"
+    # hook_com[branch]="${hook_com[branch]}%{$prompt_reset%}${remsplit}%{$prompt_yellow%}${remote}%{$prompt_reset%}${absplit}${(j:/:)gitstatus}"
+    hook_com[branch]="${hook_com[branch]}%{$prompt_reset%}${absplit}${(j:/:)gitstatus}"
   fi
 
   unset remsplit absplit
@@ -297,6 +298,8 @@ function prompt_undertakingyou_setup {
   zstyle ':vcs_info:hg*:*' nopatch-format "mq(%g):%n/%c %p"
   zstyle ':vcs_info:hg*:*' hgrevformat "%r" # only show local rev.
   zstyle ':vcs_info:hg*:*' branchformat "%b" # only show branch
+
+  zstyle ':vcs_info:git*:*' branchformat "%b" # only show branch
 
   zstyle ':dotzsh:module:editor:keymap:primary' overwrite " %{$prompt_red%}${over}%{$prompt_reset%}"
   zstyle ':dotzsh:module:editor:keymap' alternate " %{$prompt_yellow%}${bropen}%{$prompt_orange%}${bropen}%{$prompt_red%}${bropen}%{$prompt_reset%}"

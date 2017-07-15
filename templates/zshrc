@@ -148,6 +148,10 @@ alias apt-upgrade="sudo aptitude update && sudo aptitude safe-upgrade"
 alias home="cd ~/"
 alias desktop="cd ~/Desktop"
 
+# docker shortcuts
+alias docker_clean_images="docker rmi $(docker images -a --filter=dangling=true -q)"
+alias docker_clean_ps="docker rm $(docker ps --filter=status=exited --filter=status=created -q)"
+
 # archives and compression
 extract() {
     if [[ -f $1 ]]; then
