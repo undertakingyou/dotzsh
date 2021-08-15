@@ -181,7 +181,3 @@ mktar() { tar -cf "${1%%/}.tar" "${1%%/}/"; }
 mktgz() { tar -czf "${1%%/}.tar.gz" "${1%%/}/"; }
 mktbz() { tar -cjf "${1%%/}.tar.bz2" "${1%%/}/"; }
 mktlz() { tar --lzma -cf "${1%%/}.tar.lzma" "${1%%/}/"; }
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

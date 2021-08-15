@@ -24,3 +24,22 @@ if [[ -a /usr/local/bin/virtualenvwrapper.sh ]]; then
 elif [[ -a /usr/share/virtualenvwrapper/virtualenvwrapper.sh ]]; then
     source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 fi
+
+# Work product stuff
+# NVM / NPM stuff
+if [[ -a /usr/local/Cellar/nvm/0.35.3/nvm.sh ]]; then
+    source /usr/local/Cellar/nvm/0.35.3/nvm.sh
+fi
+export NPM_TOKEN="NWpmYXh0N293M2ZnZ212dWRtd2tpNDZmMnd4amE2aDQyaGJvd3dicWlkcG1rcHRmY3AyYQ=="
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# OBRA Stuff
+if [[ -a $HOME/.obra/_scripts/bashrc.sh ]]; then
+    source $HOME/.obra/_scripts/bashrc.sh
+fi
+
+# Java stuff
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
