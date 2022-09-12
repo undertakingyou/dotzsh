@@ -153,6 +153,12 @@ alias docker_clean_images="docker rmi $(docker images -a --filter=dangling=true 
 alias docker_clean_ps="docker rm $(docker ps --filter=status=exited --filter=status=created -q)"
 alias dc="docker-compose"
 
+
+# Kubernetes shortcuts
+alias k="kubectl"
+alias kns="kubens"
+alias ktx="kubectx"
+
 # archives and compression
 extract() {
     if [[ -f $1 ]]; then
