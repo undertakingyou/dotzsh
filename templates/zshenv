@@ -30,7 +30,7 @@ fi
 if [[ -a /usr/local/Cellar/nvm/0.35.3/nvm.sh ]]; then
     source /usr/local/Cellar/nvm/0.35.3/nvm.sh
 fi
-export NPM_TOKEN="NWpmYXh0N293M2ZnZ212dWRtd2tpNDZmMnd4amE2aDQyaGJvd3dicWlkcG1rcHRmY3AyYQ=="
+export NPM_TOKEN="dWpoNHJ2bmZkY201Y2N5eXR2bzdubjZwN2NuaWFtaWZpbG4yZGMyb2pxY3N0bGo1YTIyYQ=="
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -43,3 +43,8 @@ fi
 # Java stuff
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
+
+# Android stuff
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
+export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
