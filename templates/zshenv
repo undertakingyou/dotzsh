@@ -17,6 +17,7 @@ export DOTZSH="$HOME/.zsh"
 source "$DOTZSH/env.zsh"
 
 # Customize to your needs...
+# Python virtualenv stuff
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Projects
 if [[ -a /usr/local/bin/virtualenvwrapper.sh ]]; then
@@ -25,24 +26,16 @@ elif [[ -a /usr/share/virtualenvwrapper/virtualenvwrapper.sh ]]; then
     source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
 fi
 
-# Work product stuff
 # NVM / NPM stuff
-if [[ -a /usr/local/Cellar/nvm/0.35.3/nvm.sh ]]; then
-    source /usr/local/Cellar/nvm/0.35.3/nvm.sh
-fi
-export NPM_TOKEN="dWpoNHJ2bmZkY201Y2N5eXR2bzdubjZwN2NuaWFtaWZpbG4yZGMyb2pxY3N0bGo1YTIyYQ=="
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-# OBRA Stuff
-if [[ -a $HOME/.obra/_scripts/bashrc.sh ]]; then
-    source $HOME/.obra/_scripts/bashrc.sh
+# Homebrew stuff
+export BREW_BIN="/opt/homebrew/bin"
+if [ -d "$BREW_BIN" ]; then
+    export PATH="$PATH:$BREW_BIN"
 fi
-
-# Java stuff
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
 
 # Android stuff
 export ANDROID_HOME=$HOME/Library/Android/sdk
