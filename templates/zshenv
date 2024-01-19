@@ -31,13 +31,20 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
+# Nix stuff
+F="$HOME/.nix-profile/etc/profile.d/nix.sh"; [ -s $F ] && \. $F
+F="$HOME/Projects/nix-helpers/zsh-nix-shell/nix-shell.plugin.zsh"; [ -s $F ] && \. $F
+F="$HOME/Projects/nix-helpers/nix-zsh-completions/nix-zsh-completions.zsh"; [ -s $F ] && \. $F
+
 # Homebrew stuff
 export BREW_BIN="/opt/homebrew/bin"
 if [ -d "$BREW_BIN" ]; then
-    export PATH="$PATH:$BREW_BIN"
+    export PATH="$BREW_BIN:$PATH" # I want to default to brew stuff first.
 fi
 
 # Android stuff
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
-export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
+if [[ -d "$ANDROID_SDK_ROOT" ]]; then
+    export PATH="$PATH:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin"
+fi

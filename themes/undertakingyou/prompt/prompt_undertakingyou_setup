@@ -165,6 +165,43 @@ function +vi-hg-branchhead() {
     fi
 }
 
+# Begin a segment
+# Takes two arguments, background and foreground. Both can be omitted,
+# rendering default background/foreground.
+prompt_segment() {
+  local bg fg
+  [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
+  [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
+  if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
+    echo -n " %{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%} "
+  else
+    echo -n "%{$bg%}%{$fg%} "
+  fi
+  CURRENT_BG=$1
+  [[ -n $3 ]] && echo -n $3
+}
+
+# nix-shell: currently running nix-shell
+prompt_nix_shell() {
+  if [[ -n "$IN_NIX_SHELL" ]]; then
+    if [[ -n $NIX_SHELL_PACKAGES ]]; then
+      local package_names=""
+      local packages=($NIX_SHELL_PACKAGES)
+      for package in $packages; do
+        package_names+=" ${package##*.}"
+      done
+      prompt_segment black yellow "{$package_names }"
+    elif [[ -n $name ]]; then
+      local cleanName=${name#interactive-}
+      cleanName=${cleanName#lorri-keep-env-hack-}
+      cleanName=${cleanName%-environment}
+      prompt_segment black yellow "{ $cleanName }"
+    else # This case is only reached if the nix-shell plugin isn't installed or failed in some way
+      prompt_segment black yellow "nix-shell {}"
+    fi
+  fi
+}
+
 function get_hostname_color() {
     local chash=0
     hostcolors=( red orange yellow cyan magenta brcyan )
@@ -306,7 +343,7 @@ function prompt_undertakingyou_setup {
   SPROMPT='zsh: correct %{$prompt_red%}%R%{$prompt_reset%} to %{$prompt_green%}%r%{$prompt_reset%} [nyae]? '
   MAINPROMPT_START="%{$prompt_orange%}❮%{$prompt_red%}❮%{$prompt_brblack%}❮%(!.%U%{$prompt_red%}.%{$prompt_hi%})%n%{$prompt_green%}${prompt_at}%{$prompt_hi%}%m%u:"
   MAINPROMPT_END="%{$prompt_brblack%}❯%{$prompt_green%}❯%{$prompt_brgreen%}❯ "
-  SUBPROMPT="%{${prompt_hi}%} ${userprompt} %{$prompt_reset%}"
+  SUBPROMPT="%{${prompt_hi}%} ${userprompt} $( prompt_nix_shell ) %{$prompt_reset%}"
   PROMPT='%{$MAINPROMPT_START%}%{$prompt_path%}%{$MAINPROMPT_END%}%{$prompt_seperator%}
 $SUBPROMPT'
   PROMPT2='%{$SUBPROMPT%} %_ %{$SUBPROMPT%}'

@@ -92,7 +92,7 @@ zstyle ':dotzsh:module:ssh:agent' forwarding 'yes'
 # Auto start a session when Zsh is launched.
 # Setting it to 'local' only starts a session for local terminals.
 # Setting it to 'remote' only starts a session for SSH connections.
-##zstyle ':dotzsh:module:tmux' auto-start 'no'
+zstyle ':dotzsh:module:tmux' auto-start 'yes'
 #zstyle ':dotzsh:module:tmux:aliases' tmuxinator 'yes'
 
 ### Syntax Highlighting module
