@@ -17,6 +17,9 @@ export DOTZSH="$HOME/.zsh"
 source "$DOTZSH/env.zsh"
 
 # Customize to your needs...
+# Needed for some GPG stuff
+export GPG_TTY=$(tty)
+
 # Python virtualenv stuff
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Projects
