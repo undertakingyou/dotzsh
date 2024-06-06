@@ -1,6 +1,10 @@
 dotzsh
 ======
 
+## AS OF JUNE 2024 THIS REPOSITORY IS DEPRICATED
+Please use the new zsh config that doesn't use a config framework.
+You can find the new repository as [dot-zsh](https://github.com/undertakingyou/dot-zsh)
+
 This is Will Smith's personal zsh configuration, based an dotzsh. Dotzsh is a
 configuration framework for [Zsh][1] that enriches the command line
 interface environment with sane defaults, aliases, functions, auto completion,
